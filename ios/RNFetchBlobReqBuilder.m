@@ -141,7 +141,9 @@
                     }
                     else
                     {
-                        __block NSData * bodyBytes = [NSData dataWithContentsOfFile:orgPath ];
+                        NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:orgPath];
+                        [fileHandle seekToFileOffset:offset];
+                        __block NSData * bodyBytes = [fileHandle readDataOfLength:length];
                         [request setHTTPBody:bodyBytes];
                     }
                 }
